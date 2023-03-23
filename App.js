@@ -5,16 +5,18 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './src/firebase/firebaseConfig'
 import { collection, doc, getDocs } from 'firebase/firestore'
 import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens'
 import {decode, encode} from 'base-64'
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './app/store';
 import { setUserData } from './src/features/user/userSlice';
+import CardCollection from './src/screens/CardCollection/CardCollection';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function App() {
 
@@ -36,16 +38,19 @@ function App() {
 
   return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Tab.Navigator>
           { (userData?.id) ? (
-            <Stack.Screen name="HomeScreen" component={HomeScreen}/>
+            <>
+              <Tab.Screen name="HomeScreen" component={HomeScreen}/>
+              <Tab.Screen name="CardCollection" component={CardCollection}/>
+            </>
           ) : (
             <>
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Registration" component={RegistrationScreen} />
+              <Tab.Screen name="Login" component={LoginScreen} />
+              <Tab.Screen name="Registration" component={RegistrationScreen} />
             </>
           )}
-        </Stack.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
   );
 }

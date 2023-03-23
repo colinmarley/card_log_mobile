@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { auth, db, firebase } from '../../firebase/firebaseConfig'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from '@react-native-firebase/auth';
 
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
